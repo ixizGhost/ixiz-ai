@@ -1,4 +1,3 @@
-  GNU nano 8.5                    index.js
 // index.js
 import express from 'express';
 import OpenAI from 'openai';
@@ -17,7 +16,7 @@ const openai = new OpenAI({
     'HTTP-Referer': 'https://ixiz.my.id',
     'X-Title': 'IxizAI',
   },
-  fetch: (url, options) => fetch(url, { ...options, compress: false }) >
+  fetch: (url, options) => fetch(url, { ...options, compress: false })
 });
 
 app.use(express.json());
@@ -30,10 +29,10 @@ app.get('/', (req, res) => {
       <meta charset="UTF-8" />
       <title>IxizAI Chat</title>
       <style>
-        body { font-family: sans-serif; background: #111; color: white;>
-        .chat-container { max-width: 600px; margin: auto; background: #>
-        .messages { max-height: 400px; overflow-y: auto; margin-bottom:>
-        input, button { width: 100%; padding: 12px; margin-top: 10px; b>
+        body { font-family: sans-serif; background: #111; color: white; }
+        .chat-container { max-width: 600px; margin: auto; background: #222; padding: 20px; border-radius: 10px; }
+        .messages { max-height: 400px; overflow-y: auto; margin-bottom: 10px; }
+        input, button { width: 100%; padding: 12px; margin-top: 10px; background: #333; color: white; border: none; border-radius: 5px; }
         h2 { color: cyan; }
       </style>
     </head>
@@ -41,9 +40,9 @@ app.get('/', (req, res) => {
       <div class="chat-container">
         <h2>Ngobrol sama <span id="botName">IxizAI</span></h2>
         <div class="messages" id="chatLog">
-          <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. >
+          <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. Mau tanya apa?</p>
         </div>
-        <input type="text" id="userInput" placeholder="Tulis pertanyaan>
+        <input type="text" id="userInput" placeholder="Tulis pertanyaan lo di sini..." />
         <button onclick="sendMsg()">Kirim</button>
       </div>
       <script>
@@ -67,7 +66,7 @@ app.get('/', (req, res) => {
           chatLog.scrollTop = chatLog.scrollHeight;
         }
 
-        document.getElementById("userInput").addEventListener("keypress>
+        document.getElementById("userInput").addEventListener("keypress", function(e) {
           if (e.key === "Enter") sendMsg();
         });
       </script>
@@ -83,7 +82,7 @@ app.post('/chat', async (req, res) => {
     const completion = await openai.chat.completions.create({
       model: 'mistralai/mistral-7b-instruct:free',
       messages: [
-        { role: 'system', content: 'Kamu adalah asisten AI bernama Ixiz>
+        { role: 'system', content: 'Kamu adalah asisten AI bernama IxizAI, jawab dengan gaya santai dan jelas.' },
         { role: 'user', content: message }
       ]
     });
