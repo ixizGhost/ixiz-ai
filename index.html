@@ -4,49 +4,20 @@
   <meta charset="UTF-8" />
   <title>IxizAI Chat</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #111;
-      color: white;
-      padding: 20px;
-    }
-    .chat-container {
-      max-width: 600px;
-      margin: auto;
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-    }
-    .messages {
-      max-height: 400px;
-      overflow-y: auto;
-      margin-bottom: 15px;
-      border: 1px solid #333;
-      padding: 10px;
-      border-radius: 8px;
-      background: #000;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      background: #333;
-      color: white;
-      border: none;
-      border-radius: 6px;
-    }
-    h2 {
-      color: cyan;
-    }
+    body { font-family: sans-serif; background: #111; color: white; pad>
+    .chat-container { max-width: 600px; margin: auto; background: #222;>
+    .messages { max-height: 400px; overflow-y: auto; margin-bottom: 15p>
+    input, button { width: 100%; padding: 12px; margin-top: 10px; backg>
+    h2 { color: cyan; }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <h2>Ngobrol sama <span id="botName">IxizAI</span></h2>
     <div class="messages" id="chatLog">
-      <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. Mau nanya apa?</p>
+      <p><b>IxizAI:</b> Halo! Gue AI gratis powered by always ixiz. Mau>
     </div>
-    <input type="text" id="userInput" placeholder="Tulis pertanyaan kamu..." />
+    <input type="text" id="userInput" placeholder="Tulis pertanyaan kam>
     <button onclick="sendMsg()">Kirim</button>
   </div>
 
@@ -57,7 +28,7 @@
       const userMessage = input.value;
       if (!userMessage.trim()) return;
 
-      chatLog.innerHTML += `<p><b>Lo:</b> ${userMessage}</p>`;
+      chatLog.innerHTML += "<p><b>Lo:</b> " + userMessage + "</p>";
       input.value = "";
 
       const res = await fetch("/chat", {
@@ -67,14 +38,13 @@
       });
 
       const data = await res.json();
-      chatLog.innerHTML += `<p><b>IxizAI:</b> ${data.reply}</p>`;
+      chatLog.innerHTML += "<p><b>IxizAI:</b> " + data.reply + "</p>";
       chatLog.scrollTop = chatLog.scrollHeight;
     }
 
-    // Auto kirim saat tekan Enter
-    document.getElementById("userInput").addEventListener("keypress", function(e) {
+    document.getElementById("userInput").addEventListener("keypress", f>
       if (e.key === "Enter") sendMsg();
     });
-  </script>
+    </script>
 </body>
 </html>
