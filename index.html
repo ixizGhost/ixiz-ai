@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>IxizAI Chat</title>
   <style>
     body {
@@ -44,39 +44,37 @@
   <div class="chat-container">
     <h2>Ngobrol sama <span id="botName">IxizAI</span></h2>
     <div class="messages" id="chatLog">
-      <p><b>IxizAI:</b> Halo! Gue AI gratis powered by Moonshot. Mau nanya apa?</p>
+      <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. Mau nanya apa?</p>
     </div>
     <input type="text" id="userInput" placeholder="Tulis pertanyaan kamu..." />
     <button onclick="sendMsg()">Kirim</button>
   </div>
-<script>
-  const proxyUrl = "https://ixiz-ai.vercel.app/api/chat"; // Ganti ini sesuai project Vercel lu
-  const botName = "IxizAI";
 
-  async function sendMsg() {
-    const input = document.getElementById("userInput");
-    const chatLog = document.getElementById("chatLog");
-    const userMessage = input.value;
-    if (!userMessage.trim()) return;
+  <script>
+    async function sendMsg() {
+      const input = document.getElementById("userInput");
+      const chatLog = document.getElementById("chatLog");
+      const userMessage = input.value;
+      if (!userMessage.trim()) return;
 
-    chatLog.innerHTML += `<p><b>Lo:</b> ${userMessage}</p>`;
-    input.value = "";
+      chatLog.innerHTML += `<p><b>Lo:</b> ${userMessage}</p>`;
+      input.value = "";
 
-    try {
-      const response = await fetch(proxyUrl, {
+      const res = await fetch("/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({ message: userMessage }),
       });
 
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content || "Maaf, AI error.";
-      chatLog.innerHTML += `<p><b>${botName}:</b> ${reply}</p>`;
+      const data = await res.json();
+      chatLog.innerHTML += `<p><b>IxizAI:</b> ${data.reply}</p>`;
       chatLog.scrollTop = chatLog.scrollHeight;
-    } catch (err) {
-      chatLog.innerHTML += `<p><b>${botName}:</b> Gagal konek ke server.</p>`;
     }
-  }
-</script>
+
+    // Auto kirim saat tekan Enter
+    document.getElementById("userInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMsg();
+    });
+  </script>
 </body>
 </html>
