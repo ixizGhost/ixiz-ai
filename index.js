@@ -1,6 +1,9 @@
+  GNU nano 8.5                    index.js
+// index.js
 import express from 'express';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -14,6 +17,7 @@ const openai = new OpenAI({
     'HTTP-Referer': 'https://ixiz.my.id',
     'X-Title': 'IxizAI',
   },
+  fetch: (url, options) => fetch(url, { ...options, compress: false }) >
 });
 
 app.use(express.json());
@@ -26,10 +30,10 @@ app.get('/', (req, res) => {
       <meta charset="UTF-8" />
       <title>IxizAI Chat</title>
       <style>
-        body { font-family: sans-serif; background: #111; color: white; padding: 20px; }
-        .chat-container { max-width: 600px; margin: auto; background: #222; padding: 20px; border-radius: 12px; }
-        .messages { max-height: 400px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #333; padding: 10px; border-radius: 8px; background: #000; }
-        input, button { width: 100%; padding: 12px; margin-top: 10px; background: #333; color: white; border: none; border-radius: 6px; }
+        body { font-family: sans-serif; background: #111; color: white;>
+        .chat-container { max-width: 600px; margin: auto; background: #>
+        .messages { max-height: 400px; overflow-y: auto; margin-bottom:>
+        input, button { width: 100%; padding: 12px; margin-top: 10px; b>
         h2 { color: cyan; }
       </style>
     </head>
@@ -37,9 +41,9 @@ app.get('/', (req, res) => {
       <div class="chat-container">
         <h2>Ngobrol sama <span id="botName">IxizAI</span></h2>
         <div class="messages" id="chatLog">
-          <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. Mau nanya apa?</p>
+          <p><b>IxizAI:</b> Halo! Gue AI gratis powered by OpenRouter. >
         </div>
-        <input type="text" id="userInput" placeholder="Tulis pertanyaan kamu..." />
+        <input type="text" id="userInput" placeholder="Tulis pertanyaan>
         <button onclick="sendMsg()">Kirim</button>
       </div>
       <script>
@@ -55,7 +59,7 @@ app.get('/', (req, res) => {
           const res = await fetch("/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage }),
+            body: JSON.stringify({ message: userMessage })
           });
 
           const data = await res.json();
@@ -63,7 +67,7 @@ app.get('/', (req, res) => {
           chatLog.scrollTop = chatLog.scrollHeight;
         }
 
-        document.getElementById("userInput").addEventListener("keypress", function(e) {
+        document.getElementById("userInput").addEventListener("keypress>
           if (e.key === "Enter") sendMsg();
         });
       </script>
@@ -77,11 +81,11 @@ app.post('/chat', async (req, res) => {
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'openai/gpt-4o',
+      model: 'mistralai/mistral-7b-instruct:free',
       messages: [
-        { role: 'system', content: 'Kamu adalah asisten AI bernama IxizAI.' },
-        { role: 'user', content: message },
-      ],
+        { role: 'system', content: 'Kamu adalah asisten AI bernama Ixiz>
+        { role: 'user', content: message }
+      ]
     });
 
     res.json({ reply: completion.choices[0].message.content });
@@ -91,4 +95,6 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(\`Server jalan di http://localhost:\${PORT}\`));
+app.listen(PORT, () => {
+  console.log(`Server jalan di http://localhost:${PORT}`);
+});
